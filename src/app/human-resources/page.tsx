@@ -1,4 +1,4 @@
-import { HumanResourcesForm } from "@/components/common/HumanResourcesForm"
+import { HumanResourcesCsvForm } from "@/components/common/HumanResourcesCsvForm"
 import {
   Card,
   CardContent,
@@ -26,7 +26,7 @@ export default function Page() {
               </CardDescription>
             </CardHeader>
             <CardContent className="flex items-center justify-center w-full">
-              <HumanResourcesForm />
+              <HumanResourcesCsvForm />
             </CardContent>
           </Card>
         </div>
