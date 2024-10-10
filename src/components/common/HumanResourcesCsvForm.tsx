@@ -19,19 +19,17 @@ import {
 import { Input } from "@/components/ui/input"
 
 const FormSchema = z.object({
-  file1: z.array(z.string()).nonempty("Dosya seçmelisiniz."),
-  file2: z.array(z.string()).nonempty("Dosya seçmelisiniz."),
+  file1: z.instanceof(FileList).optional(),
+  file2: z.instanceof(FileList).optional(),
 })
 
 export function HumanResourcesCsvForm() {
   const [loading, setLoading] = useState(false)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      file1: undefined,
-      file2: undefined,
-    },
   })
+  const fileRef = form.register("file1")
+  const fileRef2 = form.register("file2")
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     // Çoklu gönderimi önlemek için butonu devre dışı bırakıyoruz
@@ -102,57 +100,49 @@ export function HumanResourcesCsvForm() {
             <FormField
               control={form.control}
               name="file1"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Linkedin Profillerini CSV Formatında Yükleyiniz
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Dosya Seç"
-                      {...field}
-                      accept=".csv"
-                      type="file"
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Lütfen adayların LinkedIn profil URL{"'"}lerini içeren CSV
-                    dosyasını yükleyiniz.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Linkedin Profilleri</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        placeholder="Linkedin profillerini seçiniz csv"
+                        accept=".csv"
+                        {...fileRef}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
             <FormField
               control={form.control}
               name="file2"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>
-                    Yarışmacı Profillerini CSV Olarak Seçiniz
-                  </FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Dosya Seç"
-                      {...field}
-                      accept=".csv"
-                      type="file"
-                    />
-                  </FormControl>
-                  <FormDescription>
-                    Lütfen yarışmacıların LinkedIn profil URL{"'"}lerini içeren
-                    CSV dosyasını yükleyiniz.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Yarışmacı Profilleri</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="file"
+                        placeholder="Yarışmacı profillerini seçiniz csv"
+                        accept=".csv"
+                        {...fileRef2}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
             />
           </>
         )}
 
         <div className="flex justify-center">
           <Button type="submit" disabled={loading}>
-            {loading ? "Yükleniyor..." : "Gönder"}
+            {loading ? "Yükleniyor..." : "Yükle ve İşle"}
           </Button>
         </div>
       </form>
