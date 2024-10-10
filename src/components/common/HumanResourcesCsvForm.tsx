@@ -38,8 +38,8 @@ export function HumanResourcesCsvForm() {
 
       // FormData objesi oluşturuluyor
       const formData = new FormData()
-      formData.append("file1", data.file1[0]) // file1 ekleniyor
-      formData.append("file2", data.file2[0]) // file2 ekleniyor
+      formData.append("file1", data?.file1[0]) // file1 ekleniyor
+      formData.append("file2", data?.file2[0]) // file2 ekleniyor
       // POST isteğiyle verileri backend'e gönder
       const response = await fetch("http://127.0.0.1:8000/process-csv/", {
         method: "POST",
@@ -109,6 +109,7 @@ export function HumanResourcesCsvForm() {
                         placeholder="Linkedin profillerini seçiniz csv"
                         accept=".csv"
                         {...fileRef}
+                        required
                       />
                     </FormControl>
                     <FormMessage />
@@ -129,6 +130,7 @@ export function HumanResourcesCsvForm() {
                         placeholder="Yarışmacı profillerini seçiniz csv"
                         accept=".csv"
                         {...fileRef2}
+                        required
                       />
                     </FormControl>
                     <FormMessage />
