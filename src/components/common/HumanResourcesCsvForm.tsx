@@ -93,8 +93,8 @@ export function HumanResourcesCsvForm() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full flex flex-col gap-4"
       >
-        {!loading ? (
-          <div className="flex items-center justify-center h-20 ">
+        {loading ? (
+          <div className="flex items-center justify-center h-20">
             <div className="loader"></div>
           </div>
         ) : (
